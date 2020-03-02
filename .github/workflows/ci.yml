@@ -27,4 +27,8 @@ jobs:
         with:
           bucket: 'sh-sysops'
           key: 'test2'
-          path: './README.md'
+          path: './README-copy.md'
+
+      - name: Verify file matches
+        run: cmp README.md README-copy.md
+
