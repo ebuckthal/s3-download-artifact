@@ -18,12 +18,13 @@ try {
   core.info(`key: ${key}`);
 
   s3.getObject({ Bucket: inputBucket, Key: key }, (err, data) => {
-   if (err) {
-     throw err;
-   }
+    if (err) {
+      throw err;
+    }
+    core.info(JSON.stringify(data, null, 20));
     core.info(`Downloading ${data.Location} to ${inputPath}`);
 
-   data.stream.pipe(stream);
+    data.stream.pipe(stream);
 
    stream.on('error', err => { throw err; });
  });
