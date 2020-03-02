@@ -15,7 +15,6 @@ jobs:
 
       - name: Upload 
         uses: ebuckthal/s3-upload-artifact@v3
-        id: test 
         with:
           bucket: 'sh-sysops'
           key: 'test2'
