@@ -10,24 +10,20 @@ try {
   const inputKey = core.getInput('key');
   const key = path.join(github.context.sha, inputKey);
 
-  const stream = fs.createWriteStream(inputPath);
-
   AWS.config.update({ region: process.env.AWS_REGION || 'us-east-1' });
   s3 = new AWS.S3({ apiVersion: process.env.AWS_API_VERISON || '2006-03-01' });
 
-  core.info(`key: ${key}`);
+  await new Promise((resolve, reject) => {
+    const s3Stream = s3
+      .getObject({ Bucket: inputBucket, Key: key })
+      .createReadStream();
+    const fileStream = fs.createWriteStream(inputPath);
 
-  s3.getObject({ Bucket: inputBucket, Key: key }, (err, data) => {
-    if (err) {
-      throw err;
-    }
-    core.info(JSON.stringify(data, null, 20));
-    core.info(`Downloading ${data.Location} to ${inputPath}`);
-
-    data.stream.pipe(stream);
-
-   stream.on('error', err => { throw err; });
- });
+    s3Stream.on('error', reject);
+    fileStream.on('error', reject);
+    fileStream.on('close', () => resolve());
+    s3Stream.pipe(fileStream);
+  });
 } catch (error) {
   core.setFailed(error.message);
 }
