@@ -15,6 +15,8 @@ try {
   AWS.config.update({ region: process.env.AWS_REGION || 'us-east-1' });
   s3 = new AWS.S3({ apiVersion: process.env.AWS_API_VERISON || '2006-03-01' });
 
+  core.info(`key: ${key}`);
+
   s3.getObject({ Bucket: inputBucket, Key: key }, (err, data) => {
    if (err) {
      throw err;
