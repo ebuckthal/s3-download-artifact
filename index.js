@@ -9,7 +9,11 @@ async function run() {
     const inputBucket = core.getInput('bucket');
     const inputPath = core.getInput('path');
     const inputKey = core.getInput('key');
-    const key = path.join(github.context.sha, inputKey);
+    const key = path.join(
+      github.context.repository,
+      github.context.sha,
+      inputKey,
+    );
 
     AWS.config.update({ region: process.env.AWS_REGION || 'us-east-1' });
     s3 = new AWS.S3({
