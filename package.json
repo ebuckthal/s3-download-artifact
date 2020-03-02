@@ -1,0 +1,30 @@
+{
+  "name": "s3-download-artifact",
+  "version": "1.0.0",
+  "description": "Mirrors actions/download-artifact but for s3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "ncc build index.js -m"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebuckthal/s3-download-artifact.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ebuckthal/s3-download-artifact/issues"
+  },
+  "homepage": "https://github.com/ebuckthal/s3-download-artifact#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.2",
+    "@actions/github": "^2.1.1",
+    "aws-sdk": "^2.630.0"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.21.1",
+    "prettier": "^1.19.1"
+  }
+}

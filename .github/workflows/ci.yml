@@ -1,0 +1,31 @@
+on: [push]
+
+env:
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+
+jobs:
+  test_upload:
+    runs-on: ubuntu-latest
+    name: Test S3 download 
+    steps:
+      # To use this repository's private action, you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Upload 
+        uses: ebuckthal/s3-upload-artifact@v3
+        id: test 
+        with:
+          bucket: 'sh-sysops'
+          key: 'test2'
+          path: './README.md'
+
+      - name: 
+        uses: ./ # Uses an action in the root directory
+        #uses: ebuckthal/s3-download-artifact@v3
+        id: test 
+        with:
+          bucket: 'sh-sysops'
+          key: 'test2'
+          path: './README.md'

@@ -1,0 +1,16 @@
+name: 'Download a Build Artifact via S3'
+description: 'Download a build artifact from a previous workflow step S3'
+author: 'ebuckthal'
+inputs: 
+  bucket:
+    description: 'bucket name'
+    required: true
+  key:
+    description: 'key of uploaded file'
+    required: true
+  path:
+    description: 'download file at path'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
