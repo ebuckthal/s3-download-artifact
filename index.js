@@ -9,8 +9,9 @@ async function run() {
     const inputBucket = core.getInput('bucket');
     const inputPath = core.getInput('path');
     const inputKey = core.getInput('key');
+
     const key = path.join(
-      github.context.repository,
+      github.context.payload.repository.full_name,
       github.context.sha,
       inputKey,
     );
